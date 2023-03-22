@@ -1,0 +1,66 @@
+.table {
+    background-color: #2C2B2D !important;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.table.is-striped tbody tr:not(.is-selected):nth-child(2n) {
+    background-color: #191A1A !important;
+}
+
+.table-head {
+    background-color: #45D8B1 !important;
+}
+
+.table .table-head {
+    color: #000 !important;
+}
+
+.table tbody tr td {
+    color: white !important;
+}
+
+.table-row td {
+    text-align: center !important;
+    vertical-align: middle;
+}
+
+.table-row td[colspan="12"] {
+    padding: 0 !important;
+}
+
+.table-row th {
+    text-align: center !important;
+    vertical-align: middle;
+}
+
+.table thead th {
+    border: none;
+    padding: 0;
+}
+
+.table th,
+.table td {
+    border: none;
+    padding: 0 20px
+}
+
+.table td.children {
+    padding: 0 50px
+}
+
+.table td.children:has(svg):hover {
+    cursor: pointer;
+}
+
+td .table {
+    margin-left: 20px;
+}
+
+.delete-button:hover {
+    cursor: pointer;
+}
+
+.delete-button svg {
+    color: #ff0000
+}
