@@ -1,29 +1,35 @@
 import './App.css'
 import Table from './components/table/Table'
 import _exampleData from './assets/example-data.json'
-import TableRow from './components/tableRow/TableRow';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const App = () => {
-
   const exampleData = _exampleData;
+  const [tableData, setTableData] = useState()
 
   useEffect(() => {
-    const reformatData = [];
-    exampleData.forEach(item => reformatData.push(item))
-    console.log(reformatData)
+    setTableData(formatData(exampleData))
+    console.log(exampleData)
+    console.log(tableData)
   }, [])
 
-  /*
-  <div className="container">
-        <Table data={exampleData}/>
-      </div>
-  */
+  const formatData = (data: any) => {
+    const formattedData: any = [];
+
+    data.forEach((item: any) => {
+      const row = {
+        data: item.data,
+        children: Object.values(item.children).length > 0 && formatData(item.children[Object.keys(item.children).pop() as string].records)
+      }
+      formattedData.push(row)
+    })
+    return formattedData as any
+  }
 
   return (
     <>
       <div className="container">
-        
+        <Table parentIndex={0} data={tableData} setData={setTableData} />
       </div>
     </>
   )

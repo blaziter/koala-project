@@ -4,7 +4,7 @@
     word-wrap: break-word;
 }
 
-.table.is-striped tbody tr:not(.is-selected):nth-child(2n) {
+.table > tbody > tr:nth-child(even of .table-row) {
     background-color: #191A1A !important;
 }
 
@@ -22,16 +22,12 @@
 
 .table-row td {
     text-align: center !important;
-    vertical-align: middle;
-}
-
-.table-row td[colspan="12"] {
-    padding: 0 !important;
+    vertical-align: middle !important;
 }
 
 .table-row th {
     text-align: center !important;
-    vertical-align: middle;
+    vertical-align: middle !important;
 }
 
 .table thead th {
@@ -45,11 +41,11 @@
     padding: 0 20px
 }
 
-.table td.children {
+.table td:has(svg) {
     padding: 0 50px
 }
 
-.table td.children:has(svg):hover {
+.table td:has(svg):hover:not(:has(table)) {
     cursor: pointer;
 }
 
