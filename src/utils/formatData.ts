@@ -1,5 +1,4 @@
 import { DataParameters } from "../types/DataParameters";
-import { FormatParameters } from "../types/FormatParameters";
 
 const formatData = (data: DataParameters[]) => {
     const formattedData: any = [];

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
+import { DataParameters } from "../../types/DataParameters";
 import TableRow from "../tableRow/TableRow";
+import { useEffect, useState } from "react"
 
 interface props {
-    data: any,
-    setData: any,
+    data: DataParameters[]
     deleteItem: (item: any) => void
 }
 
@@ -41,11 +41,10 @@ const Table: React.FC<props> = (props: props) => {
                                         <>
                                             {
                                                 item.data &&
-                                                <TableRow row={item} key={index} index={index} setData={props.setData} handleClick={props.deleteItem} >
+                                                <TableRow row={item} key={index} index={index} handleClick={props.deleteItem} >
                                                     {
                                                         item.children &&
-                                                        <TableRow row={item.children} key={index} index={index} setData={props.setData} handleClick={props.deleteItem}>
-                                                        </TableRow>
+                                                        <TableRow row={item.children} key={index} index={index} handleClick={props.deleteItem} />
                                                     }
                                                 </TableRow>
                                             }
