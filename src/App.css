@@ -6,3 +6,14 @@
   height: 100vh;
   text-align: center;
 }
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  vertical-align: middle !important;
+}

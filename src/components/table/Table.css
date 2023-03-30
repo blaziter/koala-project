@@ -14,6 +14,7 @@
 
 .table .table-head {
     color: #000 !important;
+    padding: 12px 0 !important;
 }
 
 .table tbody tr td {

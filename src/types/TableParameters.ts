@@ -1,5 +1,5 @@
-import { DataParameters } from './DataParameters';
+import { FormatParameters } from './FormatParameters';
 
 export interface TableParameters {
-    data: DataParameters[]
+    data: FormatParameters[]
 }

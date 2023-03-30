@@ -2,23 +2,17 @@ import { useEffect, useState } from "react"
 import TableRow from "../tableRow/TableRow";
 
 interface props {
-    parentIndex: number,
     data: any,
-    setData: any
+    setData: any,
+    deleteItem: (item: any) => void
 }
 
-const Table = ({ parentIndex, data, setData }: props) => {
+const Table: React.FC<props> = (props: props) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (data?.length > 0) setLoading(false)
-        if (data) console.log(Object.values(data))
-    }, [data])
-
-    const deleteRow = (item: any, index: number, parentIndex: number) => {
-        console.log(index, parentIndex)
-        console.log(data.includes(item))
-    }
+        if (props.data?.length > 0) setLoading(false)
+    }, [props.data])
 
     return (
         <>
@@ -27,37 +21,47 @@ const Table = ({ parentIndex, data, setData }: props) => {
                     ?
                     <div>loading</div>
                     :
-                    <table className="table">
-                        <thead className="table-head">
-                            <tr className="table-row">
-                                <th></th>
+                    Object.values(props.data).pop() != undefined
+                        ?
+                        <table className="table">
+                            <thead className="table-head">
+                                <tr className="table-row">
+                                    <th></th>
+                                    {
+                                        Object.keys(Object.values(Object.values(props.data).pop() as string)[0]).map((item, index) =>
+                                            <th key={index}>{item}</th>
+                                        )
+                                    }
+                                    <th>delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 {
-                                    Object.keys(Object.values(Object.values(data).pop() as string)[0]).map((item, index) =>
-                                        <th key={index}>{item}</th>
+                                    props.data.map((item: any, index: number) =>
+                                        <>
+                                            {
+                                                item.data &&
+                                                <TableRow row={item} key={index} index={index} setData={props.setData} handleClick={props.deleteItem} >
+                                                    {
+                                                        item.children &&
+                                                        <TableRow row={item.children} key={index} index={index} setData={props.setData} handleClick={props.deleteItem}>
+                                                        </TableRow>
+                                                    }
+                                                </TableRow>
+                                            }
+                                        </>
                                     )
                                 }
-                                <th>delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                data.map((item: any, index: number) =>
-                                    <>
-                                        {
-                                            item.data &&
-                                            <TableRow row={item} key={index} index={index} parentIndex={parentIndex} setData={setData} handleClick={() => deleteRow(item, index, parentIndex)} >
-                                                {
-                                                    item.children &&
-                                                    <TableRow row={item.children} key={index} index={index} parentIndex={parentIndex} setData={setData} handleClick={() => deleteRow(item, index, parentIndex)}>
-                                                    </TableRow>
-                                                }
-                                            </TableRow>
-                                        }
-                                    </>
-                                )
-                            }
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                        :
+                        <div className='card'>
+                            <div className='card-content'>
+                                <div className='content'>
+                                    no data
+                                </div>
+                            </div>
+                        </div>
             }
         </>
     )

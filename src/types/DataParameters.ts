@@ -3,8 +3,6 @@ export interface DataParameters {
         [key: string]: string
     },
     children?: {
-        records: [
-            DataParameters[] | null
-        ]
-    }
+
+    };
 }

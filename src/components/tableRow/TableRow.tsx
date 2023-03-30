@@ -6,13 +6,12 @@ import Table from "../table/Table"
 interface props {
     row: any,
     index: number,
-    parentIndex: number,
     children: any,
     setData: any,
-    handleClick: () => any;
+    handleClick: (item: any) => any;
 }
 
-const TableRow = ({ parentIndex, index, row, children, setData, handleClick }: props) => {
+const TableRow = ({ index, row, children, setData, handleClick }: props) => {
     const [open, setOpen] = useState(false);
     const [hide, setHide] = useState(false);
 
@@ -38,7 +37,7 @@ const TableRow = ({ parentIndex, index, row, children, setData, handleClick }: p
                         {
                             Object.values(row.data).map((item: any, index: number) => <td key={index}>{item}</td>)
                         }
-                        <td className='delete-button' onClick={handleClick}>
+                        <td className='delete-button' onClick={() => handleClick(row)}>
                             <ImCross />
                         </td>
                     </tr>
@@ -47,7 +46,7 @@ const TableRow = ({ parentIndex, index, row, children, setData, handleClick }: p
                             {
                                 open && children ?
                                     children.props != false ?
-                                        <Table data={children.props.row} parentIndex={index} setData={setData} />
+                                        <Table data={children.props.row} setData={setData} deleteItem={handleClick} />
                                         :
                                         <></>
                                     :

@@ -1,7 +1,8 @@
 import './App.css'
 import Table from './components/table/Table'
-import _exampleData from './assets/example-data.json'
+import _exampleData from './data/example-data.json'
 import { useEffect, useState } from 'react';
+import formatData from './utils/formatData';
 
 const App = () => {
   const exampleData = _exampleData;
@@ -9,27 +10,22 @@ const App = () => {
 
   useEffect(() => {
     setTableData(formatData(exampleData))
-    console.log(exampleData)
-    console.log(tableData)
   }, [])
 
-  const formatData = (data: any) => {
-    const formattedData: any = [];
-
-    data.forEach((item: any) => {
-      const row = {
-        data: item.data,
-        children: Object.values(item.children).length > 0 && formatData(item.children[Object.keys(item.children).pop() as string].records)
-      }
-      formattedData.push(row)
-    })
-    return formattedData as any
+  const deleteItem = (item: any) => {
+    let tempData = JSON.stringify(tableData)
+    let deletedItem = JSON.stringify(item)
+    let result = tempData.includes(deletedItem + ',') ? tempData.replace(deletedItem + ',', '') : tempData.replace(deletedItem, '')
+    result = result.endsWith(',]') ? result.replace(',]', ']') : result
+    result = result.replace('[]', 'false')
+    console.log(result)
+    setTableData(JSON.parse(result))
   }
 
   return (
     <>
       <div className="container">
-        <Table parentIndex={0} data={tableData} setData={setTableData} />
+        <Table data={tableData} setData={setTableData} deleteItem={deleteItem} />
       </div>
     </>
   )

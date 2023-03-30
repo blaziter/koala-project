@@ -1,5 +1,10 @@
 import { DataParameters } from "./DataParameters";
 
 export interface FormatParameters {
-    data: DataParameters
+    data: {
+        [key: string]: string
+    },
+    children?: [
+        DataParameters[] | false
+    ]
 }
